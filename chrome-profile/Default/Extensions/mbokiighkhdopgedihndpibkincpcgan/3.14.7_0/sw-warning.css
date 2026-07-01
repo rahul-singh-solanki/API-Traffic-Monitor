@@ -1,0 +1,33 @@
+html {
+  width: 100%;
+  height: min-content;
+  margin: 0;
+  border: 0;
+}
+
+body {
+  width: 100%;
+  height: min-content;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.brighthire-sw-warning-content {
+  height: min-content;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px;
+  color: #ffffff;
+  background: linear-gradient(269.95deg, #8bc7f3 -0.71%, #0772d0 100%);
+  cursor: pointer;
+}
+
+.brighthire-underline {
+  text-decoration: underline;
+}

@@ -1,0 +1,2 @@
+(()=>{try{var e,t,n;const{html:o,plain:c,editor:i}=JSON.parse(null!==(e=null===(t=document.currentScript)||void 0===t?void 0:t.dataset.params)&&void 0!==e?e:"{}"),l=window.tinyMCE,r=null!==(n=l.get(i))&&void 0!==n?n:l.activeEditor;if(!r)return;r.selection.select(r.getBody(),!0),r.selection.collapse(!1),r.focus(),o?r.execCommand("InsertHTML",!1,o):c&&r.execCommand("InsertText",!1,c)}catch{}})();
+//# sourceMappingURL=insertIntoTinyMce.js.map

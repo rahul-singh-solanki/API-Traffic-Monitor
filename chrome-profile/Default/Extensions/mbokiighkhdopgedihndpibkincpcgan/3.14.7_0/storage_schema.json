@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema#",
+  "type": "object",
+  "properties": {
+    "suppressWelcomeTab": {
+      "title": "Suppress welcome tab on install",
+      "description": "When enabled, prevents the extension from opening the BrightHire sign-in tab and reloading content script tabs during initial installation. Useful for enterprise MDM deployments.",
+      "type": "boolean"
+    }
+  }
+}

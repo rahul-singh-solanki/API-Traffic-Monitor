@@ -1,0 +1,28 @@
+.brighthire-sw-warning {
+  position: absolute;
+  overflow: hidden;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  z-index: 2147483647;
+  border-top-width: initial;
+  border-right-width: initial;
+  border-bottom-width: initial;
+  border-top-color: initial;
+  border-right-color: initial;
+  border-bottom-color: initial;
+  border-image: initial;
+  border-style: none none none none;
+  width: 100%;
+  height: 40px;
+  transform: translateY(-40px);
+  visibility: hidden;
+}
+
+.brighthire-sw-warning.brighthire-visible {
+  visibility: visible;
+}
+
+.brighthire-warning-transform {
+  transform: translateY(40px);
+}

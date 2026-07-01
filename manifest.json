@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "API Traffic Capture",
+  "version": "1.1",
+  "description": "Start/Stop capturing full API requests and responses with a live UI.",
+  "permissions": [
+    "debugger",
+    "tabs",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}

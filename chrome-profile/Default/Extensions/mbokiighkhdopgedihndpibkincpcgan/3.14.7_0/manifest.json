@@ -1,0 +1,183 @@
+{
+   "$schema": "https://json.schemastore.org/chrome-manifest.json",
+   "action": {
+      "default_icon": {
+         "128": "icon-128x128.png",
+         "16": "icon-16x16.png",
+         "48": "icon-48x48.png"
+      }
+   },
+   "background": {
+      "service_worker": "swWrapper.js"
+   },
+   "content_scripts": [ {
+      "css": [ "swWarningContentScript.css" ],
+      "js": [ "greenhouseSchedulerContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://*.greenhouse.io/interviews/scheduler?*", "https://*.greenhouse.io/interviews/scheduler/legacy?*" ],
+      "run_at": "document_start"
+   }, {
+      "js": [ "greenhouseCandidateContentScript.js", "greenhouseCandidateContentScriptV2.js" ],
+      "matches": [ "https://*.greenhouse.io/people/*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "drawerContentScript.css", "swWarningContentScript.css" ],
+      "exclude_matches": [ "https://*.greenhouse.io/scorecards/*/confirmation" ],
+      "js": [ "greenhouseDrawerContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://*.greenhouse.io/*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "button.css", "swWarningContentScript.css" ],
+      "js": [ "greenhouseJdContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://*.greenhouse.io/plans/*/ramp_up/job_post_index", "https://*.greenhouse.io/plans/*/ramp_up/job_post_edit", "https://*.greenhouse.io/plans/*/jobapps/new", "https://*.greenhouse.io/jobapps/*/edit" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "button.css", "swWarningContentScript.css" ],
+      "js": [ "greenhouseInterviewQuestionsContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://*.greenhouse.io/guides/*/edit*", "https://*.greenhouse.io/ramp_up/guides/*/edit*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "button.css", "alert.css", "scorecard-ui.css", "feedback.css" ],
+      "js": [ "greenhouseScorecardContentScript.js" ],
+      "matches": [ "https://*.greenhouse.io/guides/*/people/*", "https://*.greenhouse.io/scorecards/*/edit" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "drawerContentScript.css", "swWarningContentScript.css", "button.css", "alert.css", "scorecard-ui.css", "feedback.css" ],
+      "js": [ "gemDrawerContentScript.js", "gemScorecardContentScript.js", "gemJdContentScript.js", "gemQuestionsContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://www.gem.com/*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "drawerContentScript.css", "swWarningContentScript.css" ],
+      "js": [ "leverDrawerContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://hire.lever.co/*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "button.css", "alert.css", "scorecard-ui.css", "feedback.css" ],
+      "js": [ "leverScorecardContentScript.js" ],
+      "matches": [ "https://hire.lever.co/interviews/*" ],
+      "run_at": "document_start"
+   }, {
+      "js": [ "leverOpportunityContentScript.js" ],
+      "matches": [ "https://hire.lever.co/candidates*", "https://hire.lever.co/search*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "button.css", "swWarningContentScript.css" ],
+      "js": [ "leverJdContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://hire.lever.co/jobs/postings*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "button.css", "swWarningContentScript.css" ],
+      "js": [ "leverQuestionsContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://hire.lever.co/settings/*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "drawerContentScript.css", "swWarningContentScript.css" ],
+      "js": [ "smartRecruitersDrawerContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://*.smartrecruiters.com/*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "button.css", "alert.css", "scorecard-ui.css", "feedback.css" ],
+      "js": [ "smartRecruitersScorecardContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://*.smartrecruiters.com/app/people/applications/*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "button.css", "swWarningContentScript.css" ],
+      "js": [ "smartRecruitersJdContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://*.smartrecruiters.com/app/job-wizard/*", "https://*.smartrecruiters.com/app/jobs/ad/*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "drawerContentScript.css", "scorecard-ui.css", "feedback.css", "swWarningContentScript.css", "button.css", "alert.css" ],
+      "js": [ "workdayJdContentScript.js", "workdayRateInterviewContentScript.js", "workdayDrawerContentScript.js", "workdayCandidateNotesContentScript.js", "workdayQuestionsContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://*.workday.com/*", "https://myworkday.com/*", "https://*.myworkday.com/*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "drawerContentScript.css", "swWarningContentScript.css" ],
+      "js": [ "talemetryContentScript.js", "drawerContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://match.app.jobvite.com/*" ],
+      "run_at": "document_start"
+   }, {
+      "all_frames": true,
+      "css": [ "calendarButton.css", "swWarningContentScript.css" ],
+      "js": [ "googleCalendarContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://calendar.google.com/calendar/*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "calendarButton.css", "swWarningContentScript.css" ],
+      "js": [ "outlookWebAppContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://outlook.office.com/*", "https://outlook.office365.com/*", "https://outlook.live.com/*" ],
+      "run_at": "document_start"
+   }, {
+      "all_frames": true,
+      "css": [ "drawerContentScript.css", "swWarningContentScript.css" ],
+      "js": [ "icimsContentScript.js", "icimsDrawerContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://*.icims.com/*" ],
+      "run_at": "document_start"
+   }, {
+      "all_frames": true,
+      "css": [ "drawerContentScript.css", "swWarningContentScript.css" ],
+      "js": [ "inforContentScript.js", "drawerContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://*.tam.inforcloudsuite.com/*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "button.css", "alert.css", "scorecard-ui.css", "feedback.css", "drawerContentScript.css", "swWarningContentScript.css" ],
+      "js": [ "ashbyDrawerContentScript.js", "ashbyScorecardContentScript.js", "ashbyJdContentScript.js", "ashbyQuestionsContentScript.js", "ashbyCandidateContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://app.ashbyhq.com/*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "drawerContentScript.css", "swWarningContentScript.css" ],
+      "js": [ "drawerContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://*.workable.com/backend/*" ],
+      "run_at": "document_start"
+   }, {
+      "js": [ "customTemplateStudioContentScript.js" ],
+      "matches": [ "https://app.ashbyhq.com/*", "https://*.greenhouse.io/*", "https://hire.lever.co/*", "https://*.smartrecruiters.com/*", "https://*.workday.com/*", "https://myworkday.com/*", "https://*.myworkday.com/*", "https://www.gem.com/*" ],
+      "run_at": "document_start"
+   }, {
+      "all_frames": true,
+      "css": [ "button.css", "alert.css", "drawerContentScript.css", "swWarningContentScript.css" ],
+      "js": [ "bullhornCandidateContentScript.js", "swWarningContentScript.js" ],
+      "matches": [ "https://*.bullhornstaffing.com/*" ],
+      "run_at": "document_start"
+   } ],
+   "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' https://app.brighthire.ai https://*.sentry.io"
+   },
+   "description": "BrightHire helps hiring teams save time, improve interview quality, and make better, faster hiring decisions.",
+   "externally_connectable": {
+      "matches": [ "https://*.brighthire.ai/*" ]
+   },
+   "host_permissions": [ "https://*.brighthire.ai/*" ],
+   "icons": {
+      "128": "icon-128x128.png",
+      "16": "icon-16x16.png",
+      "48": "icon-48x48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlqAtKfvTInIu+2UY6EF4LJXb8QRGAbYUlyjLLKXX+LQdniIWbSwYIS5Xwjf1w9wKyAQ89GBysRTOg1VjF4GvIx8MirlU2IdoNbRgXlMelBFZZ20eCOr4EgVO79gdsX/XE1DlCejvsw3gCbYRvUt5qt1NYYJmcJgTT5qCq3D3Rz/yxOyLuzTN38KlD0JzpmpWpevwNBPotw+/LrYcD5IztcTaKIkDMSvJaqFRifFQsyblj4CkpwKGCHQh5DZbtAIhfl9mV9XlKSY9wcqLvojWjS6e5PyjIrDh5Ob7i5O/BOF7hyqVpmW+axNeyh4VcTa1YS8ygNbBf7r0YuKZD0LcZQIDAQAB",
+   "manifest_version": 3,
+   "name": "BrightHire",
+   "permissions": [ "tabs", "storage", "alarms" ],
+   "storage": {
+      "managed_schema": "storage_schema.json"
+   },
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "3.14.7",
+   "version_name": "v3.14.7",
+   "web_accessible_resources": [ {
+      "matches": [ "https://app.ashbyhq.com/*", "https://*.greenhouse.io/*", "https://hire.lever.co/*", "https://*.smartrecruiters.com/*", "https://*.workday.com/*", "https://myworkday.com/*", "https://*.myworkday.com/*", "https://match.app.jobvite.com/*", "https://calendar.google.com/*", "https://outlook.office.com/*", "https://outlook.office365.com/*", "https://outlook.live.com/*", "https://*.icims.com/*", "https://*.tam.inforcloudsuite.com/*", "https://*.workable.com/*", "https://*.bullhornstaffing.com/*", "https://www.gem.com/*" ],
+      "resources": [ "sw-warning.html" ]
+   }, {
+      "matches": [ "https://app.ashbyhq.com/*", "https://*.greenhouse.io/*", "https://hire.lever.co/*", "https://*.smartrecruiters.com/*", "https://*.workday.com/*", "https://myworkday.com/*", "https://*.myworkday.com/*", "https://match.app.jobvite.com/*", "https://*.icims.com/*", "https://*.tam.inforcloudsuite.com/*", "https://*.workable.com/*", "https://*.bullhornstaffing.com/*", "https://www.gem.com/*" ],
+      "resources": [ "toast.html", "drawer.html" ]
+   }, {
+      "matches": [ "https://app.ashbyhq.com/*", "https://*.greenhouse.io/*", "https://hire.lever.co/*", "https://*.smartrecruiters.com/*", "https://*.workday.com/*", "https://myworkday.com/*", "https://*.myworkday.com/*", "https://www.gem.com/*" ],
+      "resources": [ "modal.html" ]
+   }, {
+      "matches": [ "https://*.greenhouse.io/*" ],
+      "resources": [ "insertIntoTinyMce.js" ]
+   }, {
+      "matches": [ "https://*.smartrecruiters.com/*" ],
+      "resources": [ "insertIntoSpl.js" ]
+   }, {
+      "matches": [ "https://*.smartrecruiters.com/*", "https://*.workday.com/*", "https://myworkday.com/*", "https://*.myworkday.com/*" ],
+      "resources": [ "insertIntoCke.js" ]
+   } ]
+}

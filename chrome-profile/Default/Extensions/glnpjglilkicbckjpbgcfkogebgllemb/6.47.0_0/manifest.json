@@ -1,0 +1,38 @@
+{
+   "action": {
+      "default_icon": "shared/popover/images/okta-32x32.png",
+      "default_popup": "shared/popover/popover.html"
+   },
+   "background": {
+      "service_worker": "service-worker.js"
+   },
+   "commands": {
+      "_execute_action": {
+         "suggested_key": {
+            "default": "Alt+O",
+            "mac": "Command+Shift+O",
+            "windows": "Alt+O"
+         }
+      }
+   },
+   "content_security_policy": {
+      "extension_pages": "object-src 'self';script-src 'self' 'wasm-unsafe-eval';img-src https://*.oktacdn.com https://system.okta.com https://*.cloudareanet.com https://*.clouditude.com https://*.hioktane.com https://*.lowoktane.com https://*.openalloy.com https://*.okta.com https://*.okta1.com https://*.okta-emea.com https://*.oktapreview.com https://*.perfcloud.org https://*.primeapp.com https://*.trexcloud.com https://*.widerock.com https://*.okta.ninja https://*.okta.mil https://*.okta-miltest.com https://*.okta-gov.com https://*.trex-gov.com;style-src 'unsafe-inline' https://*.oktacdn.com"
+   },
+   "description": "Work outside the perimeter",
+   "host_permissions": [ "https://*/", "http://*/" ],
+   "icons": {
+      "128": "img/chrome-store-app-icon-128.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArZXFqnnBnT3aleYaso3F4SidXxBO5/NHkb2O3AvfkrPhBqYhkz2f84tnPjyDWdcyg0r9RB4lu6eIYt/RaxSglLi9WzSFbXAWB6vyiS/OYcurXr8x1EopK8Vjfdkt4gvUrQjylnUCTBFneVtBUXB3XHTV57p/KOlxJUmvI3q7w3dkRQEr/FYhKCT/OcJuOJdCuNMIVBrM/OLrZsym/HrruKcxkaNdC5e5Py4s8LX11Ut2APx8ttxMTyxE1QaXSuuwEjB53/6RNoR8fS3ysJQ6H+dw62cK51QG1nrKQQllemvmUYF9LRC3ufC6MxDgWv46Z8PawrOHcQCQDPhjqx14vQIDAQAB",
+   "manifest_version": 3,
+   "minimum_chrome_version": "96",
+   "name": "Okta Browser Plugin",
+   "optional_permissions": [ "privacy" ],
+   "options_ui": {
+      "open_in_tab": true,
+      "page": "shared/settings-page/SettingsPage.html"
+   },
+   "permissions": [ "tabs", "cookies", "storage", "unlimitedStorage", "webRequest", "webNavigation", "scripting", "declarativeNetRequestWithHostAccess", "webRequestAuthProvider" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "6.47.0"
+}

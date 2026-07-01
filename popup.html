@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Traffic Capture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* CSS Variables for Premium Theme */
+    :root {
+      --bg-main: #0c0e12;
+      --bg-header: rgba(18, 22, 30, 0.85);
+      --bg-card: #151a24;
+      --bg-card-hover: #1e2533;
+      --bg-details: #0e1117;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-color-focus: rgba(88, 166, 255, 0.4);
+      
+      --color-text-primary: #f0f6fc;
+      --color-text-secondary: #8b949e;
+      --color-text-muted: #5b6573;
+      
+      --accent-blue: #58a6ff;
+      --accent-blue-rgb: 88, 166, 255;
+      --accent-red: #ff7b72;
+      --accent-red-rgb: 255, 123, 114;
+      --accent-green: #4dbb5f;
+      --accent-teal: #4df0c0;
+      --accent-orange: #ffb454;
+      --accent-purple: #d37bf2;
+      
+      --shadow-primary: 0 4px 20px rgba(0, 0, 0, 0.4);
+      --shadow-glow: 0 0 10px rgba(255, 123, 114, 0.4);
+    }
+
+    /* Reset and Layout */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 700px;
+      height: 560px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--bg-main);
+      color: var(--color-text-primary);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      background-color: var(--bg-header);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(88, 166, 255, 0.3);
+    }
+
+    .logo-container svg {
+      width: 16px;
+      height: 16px;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      background: linear-gradient(to right, #ffffff, #c9d1d9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .status-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--color-text-muted);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .pulse-dot.active {
+      background-color: #ff453a;
+      box-shadow: var(--shadow-glow);
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 0.5;
+        box-shadow: 0 0 0 0 rgba(255, 69, 58, 0.4);
+      }
+      100% {
+        opacity: 1;
+        box-shadow: 0 0 8px 3px rgba(255, 69, 58, 0.6);
+      }
+    }
+
+    .status-text {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+
+    /* Toolbar Controls */
+    .toolbar {
+      padding: 12px 16px;
+      background-color: rgba(21, 26, 36, 0.4);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 7px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      color: var(--color-text-primary);
+    }
+
+    .btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .btn-start {
+      background-color: var(--bg-card);
+      border-color: rgba(88, 166, 255, 0.25);
+    }
+
+    .btn-start:hover {
+      background-color: rgba(88, 166, 255, 0.1);
+      border-color: var(--accent-blue);
+    }
+
+    .btn-start.active {
+      background-color: rgba(255, 123, 114, 0.15);
+      border-color: var(--accent-red);
+      color: var(--accent-red);
+    }
+
+    .btn-start.active:hover {
+      background-color: rgba(255, 123, 114, 0.25);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: var(--color-text-muted);
+    }
+
+    .search-box {
+      position: relative;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box input {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 7px 32px 7px 10px;
+      color: var(--color-text-primary);
+      font-family: inherit;
+      font-size: 12px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-box input:focus {
+      border-color: var(--border-color-focus);
+      box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.15);
+    }
+
+    .search-box .search-icon {
+      position: absolute;
+      right: 10px;
+      width: 14px;
+      height: 14px;
+      color: var(--color-text-muted);
+      pointer-events: none;
+    }
+
+    .log-count-badge {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      padding: 2px 8px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    /* Logs Container */
+    #log-container {
+      flex-grow: 1;
+      overflow-y: auto;
+      background-color: var(--bg-main);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Empty State */
+    .empty-state {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      width: 80%;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .empty-state svg {
+      width: 44px;
+      height: 44px;
+      color: var(--color-text-muted);
+      opacity: 0.6;
+    }
+
+    .empty-state h3 {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+
+    .empty-state p {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+
+    /* Log Item Row */
+    .log-item {
+      border-bottom: 1px solid var(--border-color);
+      background-color: transparent;
+      transition: background-color 0.15s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .log-summary {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      gap: 12px;
+      user-select: none;
+    }
+
+    .log-summary:hover {
+      background-color: var(--bg-card-hover);
+    }
+
+    .log-item.expanded .log-summary {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    /* Badges */
+    .badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 6px;
+      border-radius: 4px;
+      text-align: center;
+      min-width: 48px;
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
+    }
+
+    .badge-method-get {
+      background-color: rgba(77, 240, 192, 0.12);
+      color: var(--accent-teal);
+      border: 1px solid rgba(77, 240, 192, 0.2);
+    }
+    
+    .badge-method-post {
+      background-color: rgba(88, 166, 255, 0.12);
+      color: var(--accent-blue);
+      border: 1px solid rgba(88, 166, 255, 0.2);
+    }
+
+    .badge-method-put {
+      background-color: rgba(255, 180, 84, 0.12);
+      color: var(--accent-orange);
+      border: 1px solid rgba(255, 180, 84, 0.2);
+    }
+
+    .badge-method-delete {
+      background-color: rgba(255, 123, 114, 0.12);
+      color: var(--accent-red);
+      border: 1px solid rgba(255, 123, 114, 0.2);
+    }
+
+    .badge-method-other {
+      background-color: rgba(211, 123, 242, 0.12);
+      color: var(--accent-purple);
+      border: 1px solid rgba(211, 123, 242, 0.2);
+    }
+
+    .status-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      min-width: 28px;
+      color: var(--color-text-secondary);
+    }
+
+    .status-2xx {
+      color: var(--accent-green);
+    }
+
+    .status-3xx {
+      color: var(--accent-purple);
+    }
+
+    .status-4xx, .status-5xx {
+      color: var(--accent-red);
+    }
+
+    .status-pending {
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
+
+    .url-path {
+      flex-grow: 1;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      word-break: break-all;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #e6edf3;
+    }
+
+    .log-time {
+      font-size: 10px;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+    }
+
+    .chevron-icon {
+      width: 14px;
+      height: 14px;
+      color: var(--color-text-muted);
+      transition: transform 0.2s ease;
+    }
+
+    .log-item.expanded .chevron-icon {
+      transform: rotate(90deg);
+      color: var(--color-text-primary);
+    }
+
+    /* Log Details Panel */
+    .log-details {
+      display: none;
+      background-color: var(--bg-details);
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      animation: expandDetail 0.2s ease-out;
+    }
+
+    .log-item.expanded .log-details {
+      display: block;
+    }
+
+    @keyframes expandDetail {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Tabs inside Details */
+    .tab-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .detail-section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .detail-section-header {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-secondary);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .detail-url-block {
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      padding: 8px 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      word-break: break-all;
+      color: var(--accent-blue);
+    }
+
+    .copy-btn {
+      background: none;
+      border: none;
+      color: var(--accent-blue);
+      font-size: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 500;
+    }
+
+    .copy-btn:hover {
+      text-decoration: underline;
+    }
+
+    /* Code & Headers Pre */
+    .pre-block {
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 6px;
+      padding: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 200px;
+      overflow-y: auto;
+      color: #e6edf3;
+    }
+
+    /* Custom Webkit scrollbar for Pre-blocks and Logs list */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Header Grid List */
+    .headers-grid {
+      display: grid;
+      grid-template-columns: minmax(120px, 180px) 1fr;
+      gap: 6px 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 6px;
+      padding: 10px;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    .header-name {
+      color: var(--accent-purple);
+      font-weight: 500;
+      word-break: break-all;
+    }
+
+    .header-value {
+      color: var(--color-text-primary);
+      word-break: break-all;
+    }
+
+    .empty-block {
+      color: var(--color-text-muted);
+      font-style: italic;
+      font-size: 11px;
+    }
+
+    /* Checkbox Styling */
+    .checkbox-container {
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      user-select: none;
+    }
+
+    .checkbox-container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .checkbox-custom {
+      position: relative;
+      height: 15px;
+      width: 15px;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .checkbox-container:hover input ~ .checkbox-custom {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: var(--color-text-secondary);
+    }
+
+    .checkbox-container input:checked ~ .checkbox-custom {
+      background-color: var(--accent-blue);
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 8px rgba(88, 166, 255, 0.3);
+    }
+
+    .checkbox-custom:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 5px;
+      top: 2px;
+      width: 3px;
+      height: 7px;
+      border: solid #0c0e12;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .checkbox-container input:checked ~ .checkbox-custom:after {
+      display: block;
+    }
+
+    .checkbox-label {
+      margin-left: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+
+    .log-item-checkbox-wrapper {
+      margin-right: 12px;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    /* Bulk Action Bar */
+    .bulk-bar {
+      padding: 10px 16px;
+      background-color: rgba(21, 26, 36, 0.4);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 5;
+    }
+
+    .export-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .selected-count {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      font-weight: 500;
+    }
+
+    .export-select {
+      background-color: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 5px 10px;
+      color: var(--color-text-primary);
+      font-family: inherit;
+      font-size: 11px;
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+
+    .export-select:focus {
+      border-color: var(--border-color-focus);
+    }
+
+    .btn-export {
+      background: linear-gradient(135deg, var(--accent-blue), #3b82f6);
+      border: none;
+      color: #ffffff;
+      padding: 6px 14px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
+    }
+
+    .btn-export:hover {
+      background: linear-gradient(135deg, #60a5fa, #2563eb);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-export:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="logo-container">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.905 0-5.54-1.036-7.587-2.768m15.174 0a11.953 11.953 0 01-15.174 0" />
+        </svg>
+      </div>
+      <h1>API Traffic Monitor</h1>
+    </div>
+    <div class="status-container">
+      <div class="pulse-dot" id="pulseDot"></div>
+      <span class="status-text" id="statusTxt">Idle</span>
+    </div>
+  </header>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="btn-group">
+      <button id="toggleBtn" class="btn btn-start">
+        <!-- Play / Stop Toggle Icon is injected by JS -->
+        <svg id="toggleIcon" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+        </svg>
+        <span id="toggleText">Start Capturing</span>
+      </button>
+      <button id="clearBtn" class="btn btn-secondary">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+        </svg>
+        <span>Clear Logs</span>
+      </button>
+    </div>
+    
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Filter path or method...">
+      <svg class="search-icon" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+      </svg>
+    </div>
+    
+    <span class="log-count-badge" id="logCount">0 entries</span>
+  </div>
+
+  <!-- Bulk Action Bar -->
+  <div class="bulk-bar" id="bulkBar">
+    <label class="checkbox-container">
+      <input type="checkbox" id="selectAllCheckbox">
+      <span class="checkbox-custom"></span>
+      <span class="checkbox-label">Select All</span>
+    </label>
+    <div class="export-controls">
+      <span class="selected-count" id="selectedCount">0 selected</span>
+      <select id="exportFormat" class="export-select">
+        <option value="json">JSON format</option>
+        <option value="curl">cURL format</option>
+      </select>
+      <button id="exportBtn" class="btn btn-export">
+        <svg fill="currentColor" viewBox="0 0 20 20" style="width: 14px; height: 14px; margin-right: 4px; vertical-align: middle; display: inline-block;">
+          <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+        <span id="exportText">Export All</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Live Feed -->
+  <div id="log-container">
+    <!-- Empty State -->
+    <div class="empty-state" id="emptyState">
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+      </svg>
+      <h3>No API traffic captured yet</h3>
+      <p>Ensure capturing is active and trigger network events (fetch/XHR) in the target tab.</p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

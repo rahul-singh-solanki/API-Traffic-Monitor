@@ -1,0 +1,4 @@
+2026/07/01-15:47:11.302 8eb71e Reusing MANIFEST /Users/rahulsinghsolanki/Documents/github/api-network-logger/chrome-profile/Default/shared_proto_db/MANIFEST-000001
+2026/07/01-15:47:11.302 8eb71e Recovering log #3
+2026/07/01-15:47:11.303 8eb71e (ignoring error) /Users/rahulsinghsolanki/Documents/github/api-network-logger/chrome-profile/Default/shared_proto_db/000003.log: dropping 4236 bytes; Corruption: checksum mismatch
+2026/07/01-15:47:11.303 8eb71e Reusing old log /Users/rahulsinghsolanki/Documents/github/api-network-logger/chrome-profile/Default/shared_proto_db/000003.log 

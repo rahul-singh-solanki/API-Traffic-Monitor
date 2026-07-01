@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign in Error</title>
+    <style>
+        html, body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .coverAllWindow {
+            font-family: sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            word-wrap: break-word;
+            height: calc(100vh - 2rem); /* Adjust height to account for spacing */
+            margin: 1rem;
+            border-radius: 12px;
+            background: #F7F8FD;
+            gap: 1rem;
+        }
+        h1, .subheader {
+            color: #272727;
+            text-align: center;
+            margin: 0;
+        }
+        .subheader {
+            font-weight: 500;
+            line-height: 171%;
+        }
+        .button-bar {
+            display: inline-flex;
+            gap: 1rem;
+        }
+        a {
+            color: inherit; /* Reset color to default */
+            text-decoration: none; /* Remove underline */
+            background-color: transparent; /* Reset background */
+        }
+        .button {
+            padding: 7px 12px;
+            border-radius: 4px;
+            border: 1px solid #E1E1E1;
+            background: #FFF;
+            cursor: pointer;
+        }
+    </style>
+    <script src="./SigningInError.js"></script>
+</head>
+<body>
+<div class="coverAllWindow">
+    <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M140 70C140 108.66 108.66 140 70 140C31.3401 140 0 108.66 0 70C0 31.3401 31.3401 0 70 0C108.66 0 140 31.3401 140 70Z" fill="#EAEDF8"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M40.5163 81.0227C33.9001 79.7954 28.869 75.6767 26.1699 72.2579L33.9104 66.1469C35.5285 68.1963 38.6134 70.6394 42.3149 71.326C45.6615 71.9468 50.3319 71.2929 55.9092 65.7156L62.8827 72.6892C55.3363 80.2356 47.4874 82.3158 40.5163 81.0227Z" fill="#CDD2ED"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M90.2409 81.0227C83.6247 79.7954 78.5936 75.6767 75.8945 72.2579L83.6351 66.1469C85.2531 68.1963 88.338 70.6394 92.0395 71.326C95.3861 71.9468 100.057 71.2929 105.634 65.7156L112.607 72.6892C105.061 80.2356 97.212 82.3158 90.2409 81.0227Z" fill="#CDD2ED"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M50.7993 105.637C49.7906 107.267 49.3311 109.1 49.3311 110.998H59.1931C59.1931 110.911 59.1985 110.852 59.204 110.815C59.246 110.777 59.33 110.711 59.4802 110.625C60.2605 110.178 61.8313 109.732 64.5047 109.506C67.0691 109.288 70.096 109.308 73.4407 109.398C74.3485 109.422 75.2858 109.452 76.2377 109.482C78.6838 109.559 81.227 109.64 83.6179 109.64L83.6179 99.7778C81.3927 99.7778 79.0971 99.7051 76.7146 99.6296C75.7265 99.5983 74.7235 99.5665 73.7044 99.5393C70.3318 99.4491 66.8285 99.411 63.6713 99.6787C60.623 99.9372 57.2809 100.52 54.5787 102.068C53.1566 102.882 51.793 104.03 50.7993 105.637ZM59.1682 110.851C59.1683 110.851 59.1702 110.849 59.1735 110.844C59.1696 110.848 59.168 110.851 59.1682 110.851ZM59.2108 110.778C59.2141 110.769 59.2152 110.765 59.215 110.764C59.2147 110.764 59.2131 110.768 59.2108 110.778Z" fill="#CDD2ED"/>
+    </svg>
+    <h1 class="header">Uh oh!</h1>
+    <div class="subheader">
+        We're having trouble launching your app<br>
+        Try again or troubleshoot your issue.
+    </div>
+    <div class="button-bar">
+        <a id="hostname"><div class="button">Go to my vault</div></a>
+        <a href="https://support.oktapersonal.com/article/41-sign-in-to-apps" target="_blank">
+            <div class="button">Troubleshoot</div>
+        </a>
+    </div>
+</div>
+</body>
+</html>

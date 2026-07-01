@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Traffic Capture - Test Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #0c0e12;
+      --bg-card: #151a24;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --color-text-primary: #f0f6fc;
+      --color-text-secondary: #8b949e;
+      --accent-blue: #58a6ff;
+      --accent-green: #4dbb5f;
+      --accent-red: #ff7b72;
+      --accent-purple: #d37bf2;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--color-text-primary);
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      color: var(--color-text-secondary);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 20px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      color: #fff;
+      text-align: left;
+    }
+
+    .btn-get {
+      background-color: rgba(77, 240, 192, 0.08);
+      border-color: rgba(77, 240, 192, 0.2);
+    }
+    .btn-get:hover {
+      background-color: rgba(77, 240, 192, 0.15);
+      border-color: var(--accent-green);
+    }
+
+    .btn-post {
+      background-color: rgba(88, 166, 255, 0.08);
+      border-color: rgba(88, 166, 255, 0.2);
+    }
+    .btn-post:hover {
+      background-color: rgba(88, 166, 255, 0.15);
+      border-color: var(--accent-blue);
+    }
+
+    .btn-fail {
+      background-color: rgba(255, 123, 114, 0.08);
+      border-color: rgba(255, 123, 114, 0.2);
+    }
+    .btn-fail:hover {
+      background-color: rgba(255, 123, 114, 0.15);
+      border-color: var(--accent-red);
+    }
+
+    .method-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .btn-get .method-badge {
+      background-color: rgba(77, 240, 192, 0.15);
+      color: #4df0c0;
+    }
+    .btn-post .method-badge {
+      background-color: rgba(88, 166, 255, 0.15);
+      color: var(--accent-blue);
+    }
+    .btn-fail .method-badge {
+      background-color: rgba(255, 123, 114, 0.15);
+      color: var(--accent-red);
+    }
+
+    #console {
+      margin-top: 24px;
+      padding: 16px;
+      background-color: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .console-header {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-secondary);
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>API Capture Test Controls</h1>
+    <p>Use the buttons below to trigger network requests. Start capturing via the extension popup, then trigger these requests to verify logs.</p>
+    
+    <div class="btn-group">
+      <button class="btn btn-get" id="btnGet">
+        <span>Fetch Post Details (Success)</span>
+        <span class="method-badge">GET</span>
+      </button>
+
+      <button class="btn btn-post" id="btnPost">
+        <span>Submit JSON Payload (Success)</span>
+        <span class="method-badge">POST</span>
+      </button>
+
+      <button class="btn btn-fail" id="btnFail">
+        <span>Trigger Failed Request (Network Error)</span>
+        <span class="method-badge">FAIL</span>
+      </button>
+    </div>
+
+    <div class="console-header">Local Console Log</div>
+    <div id="console">Ready to trigger requests...</div>
+  </div>
+
+  <script>
+    const con = document.getElementById('console');
+    function log(msg, error = false) {
+      const line = document.createElement('div');
+      line.style.color = error ? 'var(--accent-red)' : 'var(--accent-green)';
+      line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      con.appendChild(line);
+      con.scrollTop = con.scrollHeight;
+    }
+
+    document.getElementById('btnGet').addEventListener('click', async () => {
+      try {
+        log('Sending GET request...');
+        const res = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+        const data = await res.json();
+        log(`GET response status: ${res.status}. Data: ${JSON.stringify(data)}`);
+      } catch (err) {
+        log(`GET request failed: ${err.message}`, true);
+      }
+    });
+
+    document.getElementById('btnPost').addEventListener('click', async () => {
+      try {
+        log('Sending POST request...');
+        const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
+          method: 'POST',
+          body: JSON.stringify({
+            title: 'foo',
+            body: 'bar',
+            userId: 1,
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+        });
+        const data = await res.json();
+        log(`POST response status: ${res.status}. Data: ${JSON.stringify(data)}`);
+      } catch (err) {
+        log(`POST request failed: ${err.message}`, true);
+      }
+    });
+
+    document.getElementById('btnFail').addEventListener('click', async () => {
+      try {
+        log('Sending request to invalid domain...');
+        await fetch('https://non-existent-domain-12345-api-logger.com/invalid');
+        log('Unexpected success?!');
+      } catch (err) {
+        log(`Expected error caught locally: ${err.message}`, true);
+      }
+    });
+  </script>
+</body>
+</html>
