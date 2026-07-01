@@ -547,6 +547,13 @@ async function exportEndpoints() {
   const logs = requestIds.map(id => store[`log_${id}`] || store[`pending_${id}`]).filter(Boolean);
   
   const format = exportFormatSelect.value;
+
+  // Postman collection: build a collection file and trigger a download
+  if (format === 'postman') {
+    exportAsPostmanCollection(logs);
+    return;
+  }
+
   let outputText = '';
   
   if (format === 'json') {
@@ -572,6 +579,46 @@ async function exportEndpoints() {
     console.error("Export copy failed:", err);
     alert("Failed to copy to clipboard: " + err.message);
   }
+}
+
+// Trigger a browser download for the given text content
+function downloadFile(filename, content, mimeType = 'application/octet-stream') {
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = filename;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  // Revoke the object URL on the next tick to be safe across browsers
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// Convert selected logs into a Postman collection and download it as a file
+function exportAsPostmanCollection(logs) {
+  if (!window.CurlToPostman || typeof window.CurlToPostman.buildPostmanCollection !== 'function') {
+    alert("Postman converter is not loaded.");
+    return;
+  }
+
+  // The converter parses cURL text, so reuse the existing cURL formatter
+  const rawCurls = logs.map(formatLogAsCurl).join('\n\n');
+  const collection = window.CurlToPostman.buildPostmanCollection(rawCurls, 'API Traffic Capture');
+
+  const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const filename = `postman_collection_${stamp}.json`;
+  downloadFile(filename, JSON.stringify(collection, null, 2), 'application/json');
+
+  // Visual feedback
+  const originalText = exportText.textContent;
+  exportText.textContent = 'Downloaded!';
+  const originalBg = exportBtn.style.background;
+  exportBtn.style.background = 'linear-gradient(135deg, var(--accent-green), #10b981)';
+  setTimeout(() => {
+    exportText.textContent = originalText;
+    exportBtn.style.background = originalBg;
+  }, 1500);
 }
 
 // Run initializer
