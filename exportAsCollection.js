@@ -25,6 +25,11 @@
                 headers.push({ key, value });
             }
         }
+
+        // Inject Cookie header bound to a Postman variable so the collection
+        // picks up the {{Cookie}} environment variable automatically.
+        headers.push({ key: 'Cookie', value: '{{COOKIE}}' });
+
         return headers;
     }
 
