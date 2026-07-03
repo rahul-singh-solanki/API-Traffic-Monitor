@@ -1,1 +1,0 @@
-import{w as r}from"/chunks/chunk-OTOYGZ32.js";function e(){return t().toString(36)}function t(){return globalThis.crypto.getRandomValues(new Uint32Array(1))[0]}function o(){return r.assertLogSafe(e())}export{o as a};

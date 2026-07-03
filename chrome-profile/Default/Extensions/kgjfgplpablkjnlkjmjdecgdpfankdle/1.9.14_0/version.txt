@@ -1,6 +1,0 @@
-Release Version: 1.9.14
-Build Version: 1.9.14.314
-Build Time: 2026-06-25 10:28:58Z
-Branch: release
-Commit SHA:
-web/extension: ca0adb572a4d9f666f2d0aa996e8fc7d0893030d

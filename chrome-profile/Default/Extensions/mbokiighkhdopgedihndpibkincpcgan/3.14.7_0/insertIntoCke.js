@@ -1,2 +1,0 @@
-(()=>{try{var e,t,n;const{html:l,plain:r,editorId:s}=JSON.parse(null!==(e=null===(t=document.currentScript)||void 0===t?void 0:t.dataset.params)&&void 0!==e?e:"{}"),a=CKEDITOR,i=null!==(n=a.instances[s])&&void 0!==n?n:a.currentInstance;if(!i)return;if(i.fire("focus"),l)if(i.getData()){const e=i.createRange();e.selectNodeContents(i.editable()),e.collapse(),e.select(),i.insertHtml(`<br>${l}`,"html",e)}else i.insertHtml(`${l}`);else r&&i.insertText(`${r}`)}catch{}})();
-//# sourceMappingURL=insertIntoCke.js.map

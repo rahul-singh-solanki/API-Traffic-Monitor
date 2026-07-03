@@ -1,1 +1,0 @@
-"use strict";(()=>{try{let s=["versions.js","shared/background.js","js/oin-submission-tester-background-script.js","future/preload.js","future/init.js","js/webextension-shared.js"].filter(Boolean);importScripts(...s)}catch(s){console.log(s)}})();

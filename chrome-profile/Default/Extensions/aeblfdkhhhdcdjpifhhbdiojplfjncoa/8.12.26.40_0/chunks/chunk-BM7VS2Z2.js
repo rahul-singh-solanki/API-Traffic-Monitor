@@ -1,1 +1,0 @@
-var e="https://op8.agilebits.com/extension/report-issue";var o={"/":"INLINE_MENU_ITEMS","/frozen-accounts":"INLINE_MENU_FROZEN_ACCOUNTS","/overflow/*":void 0,"/overflow/options":"INLINE_MENU_OVERFLOW_MENU","/overflow/password-generator":"INLINE_MENU_PASSWORD_GENERATOR"};var r="com.1p.log";export{e as a,o as b,r as c};

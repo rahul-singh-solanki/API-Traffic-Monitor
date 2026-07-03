@@ -1,1 +1,0 @@
-"use strict";(()=>{(function(){var e=chrome.runtime.connect(),n=Okta.ModuleExport,o=n.port;o.post=function(t){e.postMessage(t)},e.onMessage.addListener(function(t){o.trigger("message",t)}),n.main(o)})();})();

@@ -1,2 +1,0 @@
-(()=>{try{var e,t;const{text:a,editorId:l}=JSON.parse(null!==(e=null===(t=document.currentScript)||void 0===t?void 0:t.dataset.params)&&void 0!==e?e:"{}"),n=document.getElementById(l);if(!n)return;n.value?n.value+="\n\n":n.value="",n.value+=a,n.dispatchEvent(new CustomEvent("spl-change",{bubbles:!0,detail:{value:n.value}}))}catch{}})();
-//# sourceMappingURL=insertIntoSpl.js.map

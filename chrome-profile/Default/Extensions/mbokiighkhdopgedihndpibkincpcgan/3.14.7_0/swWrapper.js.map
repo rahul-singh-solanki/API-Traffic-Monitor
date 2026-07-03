@@ -1,1 +1,0 @@
-{"version":3,"file":"swWrapper.js","mappings":"MAAA,IACEA,cAAc,QAChB,CAAE,MAAOC,GACPC,QAAQC,MAAMF,EAChB","sources":["webpack://browser-extension/./src/app/service-worker/swWrapper.ts"],"sourcesContent":["try {\n  importScripts(\"sw.js\");\n} catch (err) {\n  console.error(err);\n}\n"],"names":["importScripts","err","console","error"],"sourceRoot":""}
