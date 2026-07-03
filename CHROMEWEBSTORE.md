@@ -48,8 +48,8 @@ English
 | Asset | Dimensions | Status | Filename |
 |-------|-----------|--------|----------|
 | Store Icon [REQUIRED] | 128×128 PNG | ✅ Ready | `icons/icon-128.png` |
-| Screenshot 1 [REQUIRED] | 1280×800 | ✅ Ready | `assets/cws_screenshot.png` |
-| Screenshot 2 [RECOMMENDED] | 1024×816 | ✅ Ready | `assets/screenshot.jpg` |
+| Screenshot 1 [REQUIRED] | 1280×800 | ✅ Ready | `assets/cws_screenshot_v2.png` |
+| Screenshot 2 [RECOMMENDED] | 1024×816 | ✅ Ready | `assets/screenshot_v2.jpg` |
 
 ### Screenshot Notes
 - **Screenshot 1**: A centered mock-up of the dark UI highlighting captured GraphQL requests, Postman Collection format selected, and active tab capturing badge, on a premium gradient background.
