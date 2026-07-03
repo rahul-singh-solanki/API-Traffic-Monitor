@@ -2,7 +2,7 @@
 
 A premium, lightweight, and modern Chrome Extension designed for developers to inspect, capture, and export network request and response traffic in real-time.
 
-![API Traffic Monitor Banner](assets/cws_screenshot.png)
+![API Traffic Monitor Banner](assets/cws_screenshot.png?v=1.1)
 
 ---
 
@@ -22,7 +22,7 @@ A premium, lightweight, and modern Chrome Extension designed for developers to i
 
 ## 📸 Interface Preview
 
-![API Traffic Monitor Interface](assets/screenshot.jpg)
+![API Traffic Monitor Interface](assets/screenshot.jpg?v=1.1)
 
 ---
 
